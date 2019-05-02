@@ -13,7 +13,7 @@
     </div><br />
   @endif
   <a href="{{ url('/') }}" class="btn btn-danger">Volver</a>
-  <a href="{{ url('/personas/create') }}" class="btn btn-success">Agregar</a><br><br>
+  <a href="{{ route('personas.create')}}" class="btn btn-success">Agregar</a><br><br>
 
   <table class="table table-striped table-bordered table-hover">
     <thead>
@@ -26,7 +26,7 @@
     </thead>
     <tbody>
 
-    <form action="{{ route('personas.index')}}" method="GET">
+    <form action="" method="POST">
     <input class="form-control" type="text" name="nombre" placeholder="Filtrar por nombre">
     <button class="btn btn-primary" type="submit">Buscar</button>
     </form>

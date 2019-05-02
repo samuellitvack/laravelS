@@ -12,9 +12,13 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $personas = Persona::all();
+        if( $request->nombre != ''){
+            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
+        }else{
+            $personas = Persona::all();
+        }
         return view('personas.index', compact('personas'));
     }
 
@@ -27,6 +31,7 @@ class PersonaController extends Controller
     {
         return view('personas.create');
     }
+
 
     /**
      * Store a newly created resource in storage.

@@ -20,6 +20,8 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::resource('personas', 'PersonaController');
 });
 
+Route::get('personas/create', 'PersonaController@create');
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index');
