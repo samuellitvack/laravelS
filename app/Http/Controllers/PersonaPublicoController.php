@@ -5,21 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Persona;
 
-class PersonaController extends Controller
+class PersonaPublicoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if( $request->nombre != ''){
-            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
-        }else{
-            $personas = Persona::all();
-        }
-        return view('personas.index', compact('personas'));
+        echo "Acceso denegado"; 
     }
 
     /**
@@ -40,7 +35,18 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'edad'=>'required|integer'
+        ]);
+
+        $persona = new Persona();
+        $persona->nombre = $request->get('nombre');
+        $persona->apellido = $request->get('apellido');
+        $persona->edad = $request->get('edad');
+        $persona->save();
+        return redirect('/personas')->with('success', 'Persona agregada correctamente!');
     }
 
     /**
@@ -62,8 +68,7 @@ class PersonaController extends Controller
      */
     public function edit($id)
     {
-        $persona = Persona::find($id);
-        return view('personas.edit', compact('persona'));
+        //
     }
 
     /**
@@ -75,18 +80,7 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre'=>'required',
-            'apellido'=>'required',
-            'edad'=>'required|integer'
-        ]);
-
-        $persona = Persona::find($id);
-        $persona->nombre = $request->get('nombre');
-        $persona->apellido = $request->get('apellido');
-        $persona->edad = $request->get('edad');
-        $persona->save();
-        return redirect('/personas')->with('success', 'Persona actualizada correctamente!');
+        //
     }
 
     /**
@@ -97,8 +91,6 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        $persona = Persona::find($id);
-        $persona->delete();
-        return redirect('/personas')->with('success', 'Persona eliminada correctamente!');
+        //
     }
 }

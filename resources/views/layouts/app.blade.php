@@ -36,7 +36,7 @@
                     @if (!Auth::guest())
                        <li><a href="/personas">Personas</a></li>
                     @else
-                       <li><a href="/personas/create">Alta persona</a></li>
+                       <li><a href="/personapublico/create">Alta persona</a></li>
                     @endif
                     </ul>
 

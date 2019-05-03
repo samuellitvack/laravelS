@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::resource('personas', 'PersonaController');
 });
 
-Route::get('personas/create', 'PersonaController@create');
+Route::resource('personapublico', 'PersonaPublicoController');
 
 Auth::routes();
 
