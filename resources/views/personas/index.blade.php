@@ -21,6 +21,7 @@
           <td>Nombre</td>
           <td>Apellido</td>
           <td>Edad</td>
+          <td>DNI</td>
           <td colspan="2">Acción</td>
         </tr>
     </thead>
@@ -36,6 +37,7 @@
             <td>{{$persona->nombre}}</td>
             <td>{{$persona->apellido}}</td>
             <td>{{$persona->edad}}</td>
+            <td>{{$persona->dni}}</td>
             <td><a href="{{ route('personas.edit',$persona->id)}}" class="btn btn-primary">Editar</a>
                 <form action="{{ route('personas.destroy', $persona->id)}}" method="post">
                   @csrf
@@ -47,5 +49,6 @@
         @endforeach
     </tbody>
   </table>
+  {{ $personas->links() }}
 <div>
 @endsection

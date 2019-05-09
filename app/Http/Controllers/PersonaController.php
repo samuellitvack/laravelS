@@ -15,9 +15,9 @@ class PersonaController extends Controller
     public function index(Request $request)
     {
         if( $request->nombre != ''){
-            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
+            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->paginate(5);
         }else{
-            $personas = Persona::all();
+            $personas = Persona::paginate(5);
         }
         return view('personas.index', compact('personas'));
     }

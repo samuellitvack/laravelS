@@ -38,13 +38,15 @@ class PersonaPublicoController extends Controller
         $request->validate([
             'nombre'=>'required',
             'apellido'=>'required',
-            'edad'=>'required|integer'
+            'edad'=>'required|integer',
+            'dni'=>'required|integer'
         ]);
 
         $persona = new Persona();
         $persona->nombre = $request->get('nombre');
         $persona->apellido = $request->get('apellido');
         $persona->edad = $request->get('edad');
+        $persona->dni = $request->get('dni');
         $persona->save();
         return redirect('/personas')->with('success', 'Persona agregada correctamente!');
     }
