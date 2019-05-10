@@ -18,6 +18,7 @@
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::resource('personas', 'PersonaController');
+	Route::delete('personas/{id}', 'PersonaController@destroy');
 });
 
 Route::resource('personapublico', 'PersonaPublicoController');

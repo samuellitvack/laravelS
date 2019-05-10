@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Persona;
+use Datatables;
 
 class PersonaController extends Controller
 {
@@ -15,11 +16,20 @@ class PersonaController extends Controller
     public function index(Request $request)
     {
         if( $request->nombre != ''){
-            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->paginate(5);
+            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
         }else{
-            $personas = Persona::paginate(5);
+            $personas = Persona::all();
         }
-        return view('personas.index', compact('personas'));
+        
+        if($request->ajax()){
+            return Datatables::of($personas)->addColumn('accion', function($row){
+                $boton = "<button data-id=".$row->id." class='btn btn-primary editar'>Editar</button>";
+                $boton = $boton."<button data-id=".$row->id." class='btn btn-danger eliminar'>Eliminar</button>";
+                return $boton;
+            })->rawColumns(['accion'])->make(true);
+        }
+
+        return view('personas.index');
     }
 
     /**
@@ -85,6 +95,7 @@ class PersonaController extends Controller
         $persona->nombre = $request->get('nombre');
         $persona->apellido = $request->get('apellido');
         $persona->edad = $request->get('edad');
+        $persona->dni = $request->get('dni');
         $persona->save();
         return redirect('/personas')->with('success', 'Persona actualizada correctamente!');
     }
@@ -97,8 +108,7 @@ class PersonaController extends Controller
      */
     public function destroy($id)
     {
-        $persona = Persona::find($id);
-        $persona->delete();
-        return redirect('/personas')->with('success', 'Persona eliminada correctamente!');
+        $persona = Persona::find($id)->delete();
+        return response()->json(['success' => "Registro eliminado correctamente!"]);
     }
 }
