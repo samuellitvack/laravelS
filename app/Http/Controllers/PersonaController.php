@@ -15,12 +15,14 @@ class PersonaController extends Controller
      */
     public function index(Request $request)
     {
+        /*
         if( $request->nombre != ''){
             $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
         }else{
             $personas = Persona::all();
         }
-        
+        */
+        $personas = Persona::all();
         if($request->ajax()){
             return Datatables::of($personas)->addColumn('accion', function($row){
                 $boton = "<button data-id=".$row->id." class='btn btn-primary editar'>Editar</button>";
