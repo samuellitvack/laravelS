@@ -27,6 +27,7 @@
   <div class="acciones_menu">
      <a href="{{ url('/') }}" class="btn btn-danger">Volver</a>
      <a href="{{ url('/personas/create') }}" class="btn btn-success">Agregar</a><br><br>
+     <a href="{{ url('/exportar/personas') }}" class="btn btn-info">Descargar PDF</a><br><br>
   </div>
 
   <table id="table" class="table">

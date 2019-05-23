@@ -19,6 +19,7 @@
 Route::group(['middleware' => 'auth'], function() {
 	Route::resource('personas', 'PersonaController');
 	Route::delete('personas/{id}', 'PersonaController@destroy');
+	Route::get('exportar/personas', 'PersonaController@generarPDF');
 });
 
 Route::resource('personapublico', 'PersonaPublicoController');

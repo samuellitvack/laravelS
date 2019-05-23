@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Persona;
+use Carbon\Carbon;
 use Datatables;
+use PDF;
 
 class PersonaController extends Controller
 {
@@ -15,13 +17,6 @@ class PersonaController extends Controller
      */
     public function index(Request $request)
     {
-        /*
-        if( $request->nombre != ''){
-            $personas = Persona::where('nombre', 'LIKE', '%'.$request->nombre)->get();
-        }else{
-            $personas = Persona::all();
-        }
-        */
         $personas = Persona::all();
         if($request->ajax()){
             return Datatables::of($personas)->addColumn('accion', function($row){
@@ -112,5 +107,12 @@ class PersonaController extends Controller
     {
         $persona = Persona::find($id)->delete();
         return response()->json(['success' => "Registro eliminado correctamente!"]);
+    }
+
+    public function generarPDF(){
+        $fecha = Carbon::now()->toDateTimeString();
+        $personas = Persona::all();
+        $pdf = PDF::loadView('personas.pdf', compact('personas'));
+        return $pdf->download('personas'.$fecha.'.pdf');
     }
 }
